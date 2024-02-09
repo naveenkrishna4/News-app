@@ -6,7 +6,7 @@ import axios from "axios";
 function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -15,15 +15,17 @@ function Login() {
       .then((res) => {
         console.log(res);
         if (res.data === "Success") {
-          navigate("./home");
+          navigate("/home");
+        } else {
+          window.alert("Incorrect email or password");
         }
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div classNameName="flex justify-center items-center h-screen bg-cyan-200">
-      <div classNameName="w-96 p-6 shadow-lg bg-white rounded-md">
+    <div className="flex justify-center items-center h-screen bg-cyan-200">
+      <div className="w-96 p-6 shadow-lg bg-white rounded-md">
         <h1 className="text-center text-3xl block font-semibold">Login</h1>
         <hr className="mt-3"></hr>
         <div className="mt-3">
@@ -37,7 +39,7 @@ function Login() {
             onChange={(e) => setemail(e.target.value)}
           ></input>
         </div>
-        <div classNameName="form group">
+        <div className="form group">
           <label htmlFor="password" className="block text-base mb-2">
             Password
           </label>
@@ -50,8 +52,8 @@ function Login() {
         </div>
         <div className="mt-5">
           <button
-            type="submit"
             className="border-2 border-black bg-blue-600 py-1 w-full rounded-md hover:bg-transparent font-bold flex justify-center items-center"
+            onClick={handleClick}
           >
             Login
           </button>

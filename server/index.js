@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/register", (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = users.findOne({ email });
+  const user = await users.findOne({ email });
   if (user) {
     if (user.password === password) {
       res.json("Success");
@@ -24,7 +24,7 @@ app.post("/register", (req, res) => {
   }
 });
 
-app.post("/login", (req, res) => {
+app.post("/register", (req, res) => {
   users
     .create(req.body)
     .then((user) => res.json(user))

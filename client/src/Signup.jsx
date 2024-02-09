@@ -7,14 +7,17 @@ function Signup() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:3000/register", { name, email, password })
-      .then((res) => console.log(res));
-    navigate("./login").catch((err) => console.log(err));
+      .then((res) => {
+        console.log(res);
+        navigate("/login");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
