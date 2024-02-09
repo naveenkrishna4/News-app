@@ -14,8 +14,12 @@ function Signup() {
     axios
       .post("http://localhost:3000/register", { name, email, password })
       .then((res) => {
-        console.log(res);
-        navigate("/login");
+        if ((res.data = "No data")) {
+          window.alert("Please enter mandatory fields");
+        } else {
+          console.log(res);
+          navigate("/login");
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -62,7 +66,7 @@ function Signup() {
             Remember me
           </label>
         </div>
-        <div className="mt-5">
+        <div className="mt-4 ">
           <button
             type="submit"
             className="border-2 border-black bg-blue-600 py-1 w-full rounded-md hover:bg-transparent font-bold"

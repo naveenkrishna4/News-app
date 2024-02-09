@@ -25,10 +25,15 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  users
-    .create(req.body)
-    .then((user) => res.json(user))
-    .catch((err) => res.json(err));
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    res.json("No data");
+  } else {
+    users
+      .create(req.body)
+      .then((user) => res.json(user))
+      .catch((err) => res.json(err));
+  }
 });
 
 app.listen(3000, () => {
