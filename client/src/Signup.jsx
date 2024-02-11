@@ -14,7 +14,7 @@ function Signup() {
     axios
       .post("http://localhost:3000/register", { name, email, password })
       .then((res) => {
-        if ((res.data = "No data")) {
+        if (res.data === "No data") {
           window.alert("Please enter mandatory fields");
         } else {
           console.log(res);
