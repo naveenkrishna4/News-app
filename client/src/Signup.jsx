@@ -16,6 +16,8 @@ function Signup() {
       .then((res) => {
         if (res.data === "No data") {
           window.alert("Please enter mandatory fields");
+        } else if (res.data === "User already registered") {
+          window.alert(res.data);
         } else {
           console.log(res);
           navigate("/login");

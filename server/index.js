@@ -1,6 +1,9 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 const connectdb = require("./config/dbconnect");
 const dotenv = require("dotenv").config();
 const users = require("./model/usermodel");
@@ -13,7 +16,7 @@ app.use(cors());
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await users.findOne({ email });
-  if (user) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     if (user.password === password) {
       res.json("Success");
     } else {
@@ -24,15 +27,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
+  const hashedpw = await bcrypt.hash(password, 10);
   if (!name || !email || !password) {
     res.json("No data");
   } else {
-    users
-      .create(req.body)
-      .then((user) => res.json(user))
-      .catch((err) => res.json(err));
+    const isuser = await users.findOne({ email });
+    if (isuser) {
+      res.json("User already registered");
+    } else {
+      users
+        .create({ name, email, password: hashedpw })
+        .then((user) => res.json(user))
+        .catch((err) => res.json(err));
+    }
   }
 });
 
