@@ -20,7 +20,6 @@ function Navigationbar({ setCategory }) {
             >
               <ul className="flex list-none mr-4">
                 {" "}
-                {/* Added mr-4 for spacing */}
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
