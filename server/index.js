@@ -16,8 +16,8 @@ app.use(cors());
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await users.findOne({ email });
-  if (user && (await bcrypt.compare(password, user.password))) {
-    if (user.password === password) {
+  if (user) {
+    if (await bcrypt.compare(password, user.password)) {
       res.json("Success");
     } else {
       res.json("Incorrect email or password");
