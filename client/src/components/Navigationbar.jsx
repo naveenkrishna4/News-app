@@ -1,9 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useState } from "react-router-dom";
 function Navigationbar({ setCategory }) {
   const navigate = useNavigate();
+  const [Profile, setProfile] = useState(false);
+  const [currButton, setcurrButton] = useState(null);
+
   const handleLogout = () => {
     navigate("/register");
+  };
+
+  const profile = () => {
+    setProfile(true);
   };
 
   return (
@@ -19,11 +26,13 @@ function Navigationbar({ setCategory }) {
               id="navbarNav"
             >
               <ul className="flex list-none mr-4">
-                {" "}
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("general")}
+                    onClick={() => {
+                      setCategory("general");
+                      setcurrButton("general");
+                    }}
                   >
                     General
                   </div>
@@ -31,7 +40,10 @@ function Navigationbar({ setCategory }) {
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("business")}
+                    onClick={() => {
+                      setCategory("business");
+                      setcurrButton("business");
+                    }}
                   >
                     Business
                   </div>
@@ -39,7 +51,10 @@ function Navigationbar({ setCategory }) {
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("sports")}
+                    onClick={() => {
+                      setCategory("sports");
+                      setcurrButton("sports");
+                    }}
                   >
                     Sports
                   </div>
@@ -47,7 +62,10 @@ function Navigationbar({ setCategory }) {
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("entertainment")}
+                    onClick={() => {
+                      setCategory("entertainment");
+                      setcurrButton("entertainment");
+                    }}
                   >
                     Entertainment
                   </div>
@@ -55,15 +73,21 @@ function Navigationbar({ setCategory }) {
                 <li className="nav-item">
                   <div
                     className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("technology")}
+                    onClick={() => {
+                      setCategory("technology");
+                      setcurrButton("technology");
+                    }}
                   >
                     Technology
                   </div>
                 </li>
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
-                    onClick={() => setCategory("science")}
+                    className=" text-white px-3 py-2"
+                    onClick={() => {
+                      setCategory("science");
+                      setcurrButton("science");
+                    }}
                   >
                     Science
                   </div>
@@ -71,16 +95,14 @@ function Navigationbar({ setCategory }) {
               </ul>
             </div>
           </div>
-          <button className=" text-white font-bold" onClick={handleLogout}>
-            Logout
-          </button>
-          <button className="block lg:hidden text-white focus:outline-none">
-            <svg
-              className="h-6 w-6 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            ></svg>
-          </button>
+          <div className="flex items-center">
+            <button className="text-white font-bold mr-10" onClick={profile}>
+              Profile
+            </button>
+            <button className=" text-white font-bold" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </nav>
