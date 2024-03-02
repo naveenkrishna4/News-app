@@ -62,12 +62,6 @@ function Signup() {
             onChange={(e) => setpassword(e.target.value)}
           ></input>
         </div>
-        <div className="mt-3 flex items-left ">
-          <input type="checkbox"></input>
-          <label htmlFor="checkbox" className="px-2">
-            Remember me
-          </label>
-        </div>
         <div className="mt-4 ">
           <button
             type="submit"

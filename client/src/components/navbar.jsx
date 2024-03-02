@@ -1,18 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Profile from "./profile";
+
 function Navigationbar({ setCategory }) {
   const navigate = useNavigate();
-  const [Profile, setProfile] = useState(false);
   const [currButton, setcurrButton] = useState("general");
 
   const handleLogout = () => {
     navigate("/register");
-  };
-
-  const profile = () => {
-    setProfile(true);
-    <Profile />;
   };
 
   return (
@@ -119,7 +115,7 @@ function Navigationbar({ setCategory }) {
                 currButton === "Profile" ? "text-red-500" : "text-white"
               }`}
               onClick={() => {
-                profile();
+                setCategory("Profile");
                 setcurrButton("Profile");
               }}
             >
@@ -139,6 +135,7 @@ function Navigationbar({ setCategory }) {
           </div>
         </div>
       </div>
+      {currButton === "Profile" && <Profile />}
     </nav>
   );
 }
