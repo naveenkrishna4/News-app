@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate, useState } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 function Navigationbar({ setCategory }) {
   const navigate = useNavigate();
   const [Profile, setProfile] = useState(false);
-  const [currButton, setcurrButton] = useState(null);
+  const [currButton, setcurrButton] = useState("general");
 
   const handleLogout = () => {
     navigate("/register");
@@ -11,6 +12,7 @@ function Navigationbar({ setCategory }) {
 
   const profile = () => {
     setProfile(true);
+    <Profile />;
   };
 
   return (
@@ -28,7 +30,9 @@ function Navigationbar({ setCategory }) {
               <ul className="flex list-none mr-4">
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "general" ? "text-red-500" : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("general");
                       setcurrButton("general");
@@ -39,7 +43,9 @@ function Navigationbar({ setCategory }) {
                 </li>
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "business" ? "text-red-500" : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("business");
                       setcurrButton("business");
@@ -50,7 +56,9 @@ function Navigationbar({ setCategory }) {
                 </li>
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "sports" ? "text-red-500" : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("sports");
                       setcurrButton("sports");
@@ -61,7 +69,11 @@ function Navigationbar({ setCategory }) {
                 </li>
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "entertainment"
+                        ? "text-red-500"
+                        : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("entertainment");
                       setcurrButton("entertainment");
@@ -72,7 +84,11 @@ function Navigationbar({ setCategory }) {
                 </li>
                 <li className="nav-item">
                   <div
-                    className="cursor-pointer text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "technology"
+                        ? "text-red-500"
+                        : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("technology");
                       setcurrButton("technology");
@@ -83,7 +99,9 @@ function Navigationbar({ setCategory }) {
                 </li>
                 <li className="nav-item">
                   <div
-                    className=" text-white px-3 py-2"
+                    className={`cursor-pointer px-3 py-2 ${
+                      currButton === "science" ? "text-red-500" : "text-white"
+                    }`}
                     onClick={() => {
                       setCategory("science");
                       setcurrButton("science");
@@ -96,10 +114,26 @@ function Navigationbar({ setCategory }) {
             </div>
           </div>
           <div className="flex items-center">
-            <button className="text-white font-bold mr-10" onClick={profile}>
+            <button
+              className={`cursor-pointer px-3 py-2 ${
+                currButton === "Profile" ? "text-red-500" : "text-white"
+              }`}
+              onClick={() => {
+                profile();
+                setcurrButton("Profile");
+              }}
+            >
               Profile
             </button>
-            <button className=" text-white font-bold" onClick={handleLogout}>
+            <button
+              className={`cursor-pointer px-3 py-2 ${
+                currButton === "Logout" ? "text-red-500" : "text-white"
+              }`}
+              onClick={() => {
+                handleLogout();
+                setcurrButton("Logout");
+              }}
+            >
               Logout
             </button>
           </div>
