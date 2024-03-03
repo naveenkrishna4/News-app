@@ -1,12 +1,13 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const connectdb = require("./config/dbconnect");
-const dotenv = require("dotenv").config();
+const validateToken = require("./validateToken");
 const users = require("./model/usermodel");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 connectdb();
 const app = express();
@@ -14,16 +15,28 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await users.findOne({ email });
-  if (user) {
-    if (await bcrypt.compare(password, user.password)) {
+  try {
+    const { email, password } = req.body;
+    const user = await users.findOne({ email });
+    if (user) {
+      const pass = await bcrypt.compare(password, user.password);
+      if (!pass) {
+        return res.json("Incorrect email or password");
+      }
+      const token = jwt.sign(
+        { email: user.email, id: user._id },
+        process.env.JWT_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
       res.json("Success");
     } else {
-      res.json("Incorrect email or password");
+      res.status(404).json({ error: "User not found" });
     }
-  } else {
-    res.json("No record");
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -41,6 +54,14 @@ app.post("/register", async (req, res) => {
         .create({ name, email, password: hashedpw })
         .then((user) => res.json(user))
         .catch((err) => res.json(err));
+      const token = jwt.sign(
+        { email: email, id: user._id },
+        process.env.JWT_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
+      res.json({ token });
     }
   }
 });
@@ -58,6 +79,8 @@ app.post("/update", async (req, res) => {
     res.json(updateResult);
   }
 });
+
+app.use("/update", validateToken);
 
 app.listen(3000, () => {
   console.log("server is running");

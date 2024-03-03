@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Update({ name, setname, email, setemail, password, setpassword }) {
+function Update({
+  setCategory,
+  name,
+  setname,
+  email,
+  setemail,
+  password,
+  setpassword,
+}) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -10,8 +18,7 @@ function Update({ name, setname, email, setemail, password, setpassword }) {
     axios
       .post("http://localhost:3000/update", { name, email, password })
       .then((res) => {
-        console.log(res);
-        navigate("/home");
+        setCategory("general");
       })
       .catch((err) => console.log(err));
   };

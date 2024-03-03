@@ -5,6 +5,7 @@ import Update from "./profile";
 
 function Newsboard({
   category,
+  setCategory,
   name,
   setname,
   email,
@@ -15,6 +16,7 @@ function Newsboard({
   if (category === "Profile") {
     return (
       <Update
+        setCategory={setCategory}
         name={name}
         setname={setname}
         email={email}

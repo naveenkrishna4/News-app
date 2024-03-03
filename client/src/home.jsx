@@ -10,6 +10,7 @@ const App = ({ name, setname, email, setemail, password, setpassword }) => {
       <Navigationbar setCategory={setCategory} />
       <Newsboard
         category={category}
+        setCategory={setCategory}
         name={name}
         setname={setname}
         email={email}
