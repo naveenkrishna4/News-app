@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Signup() {
-  const [name, setname] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
+function Signup({ name, setname, email, setemail, password, setpassword }) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {

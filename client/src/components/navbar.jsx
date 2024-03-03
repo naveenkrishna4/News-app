@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Profile from "./profile";
 
 function Navigationbar({ setCategory }) {
   const navigate = useNavigate();
@@ -135,7 +134,6 @@ function Navigationbar({ setCategory }) {
           </div>
         </div>
       </div>
-      {currButton === "Profile" && <Profile />}
     </nav>
   );
 }

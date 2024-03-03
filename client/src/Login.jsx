@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
+function Login({ email, setemail, password, setpassword }) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -38,7 +36,7 @@ function Login() {
             onChange={(e) => setemail(e.target.value)}
           ></input>
         </div>
-
+        <br></br>
         <div className="form group">
           <label htmlFor="password" className="block text-base mb-2">
             Password

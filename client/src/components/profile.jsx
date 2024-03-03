@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function update() {
-  const [name, setname] = useState("");
-  const [password, setpassword] = useState("");
+function Update({ name, setname, email, setemail, password, setpassword }) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/register", { name, email, password })
+      .post("http://localhost:3000/update", { name, email, password })
       .then((res) => {
         console.log(res);
         navigate("/home");
@@ -61,4 +59,4 @@ function update() {
   );
 }
 
-export default update;
+export default Update;

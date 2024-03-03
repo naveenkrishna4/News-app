@@ -45,6 +45,20 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/update", async (req, res) => {
+  const { name, email, password } = req.body;
+  const hashedpw = await bcrypt.hash(password, 10);
+  if (!name || !email || !password) {
+    res.json("No data");
+  } else {
+    const user = await users.findOne({ email });
+    const updateResult = await users.updateOne(user, {
+      $set: { name: name, password: hashedpw },
+    });
+    res.json(updateResult);
+  }
+});
+
 app.listen(3000, () => {
   console.log("server is running");
 });
