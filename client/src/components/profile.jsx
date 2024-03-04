@@ -10,6 +10,7 @@ function Update({
   setemail,
   password,
   setpassword,
+  setcurrButton,
 }) {
   const navigate = useNavigate();
 
@@ -18,7 +19,9 @@ function Update({
     axios
       .post("http://localhost:3000/update", { name, email, password })
       .then((res) => {
+        console.log(res);
         setCategory("general");
+        setcurrButton("general");
       })
       .catch((err) => console.log(err));
   };

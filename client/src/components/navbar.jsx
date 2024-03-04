@@ -1,10 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
-function Navigationbar({ setCategory }) {
+function Navigationbar({ setCategory, currButton, setcurrButton }) {
   const navigate = useNavigate();
-  const [currButton, setcurrButton] = useState("general");
 
   const handleLogout = () => {
     navigate("/register");

@@ -12,6 +12,7 @@ function Newsboard({
   setemail,
   password,
   setpassword,
+  setcurrButton,
 }) {
   if (category === "Profile") {
     return (
@@ -23,6 +24,7 @@ function Newsboard({
         setemail={setemail}
         password={password}
         setpassword={setpassword}
+        setcurrButton={setcurrButton}
       />
     );
   } else {

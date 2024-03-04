@@ -5,9 +5,14 @@ import { useState } from "react";
 
 const App = ({ name, setname, email, setemail, password, setpassword }) => {
   const [category, setCategory] = useState("general");
+  const [currButton, setcurrButton] = useState("general");
   return (
     <div style={{ backgroundColor: "#ADD8E6" }}>
-      <Navigationbar setCategory={setCategory} />
+      <Navigationbar
+        setCategory={setCategory}
+        currButton={currButton}
+        setcurrButton={setcurrButton}
+      />
       <Newsboard
         category={category}
         setCategory={setCategory}
@@ -17,6 +22,7 @@ const App = ({ name, setname, email, setemail, password, setpassword }) => {
         setemail={setemail}
         password={password}
         setpassword={setpassword}
+        setcurrButton={setcurrButton}
       />
     </div>
   );
