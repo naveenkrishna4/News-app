@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Update({
@@ -12,16 +11,27 @@ function Update({
   setpassword,
   setcurrButton,
 }) {
-  const navigate = useNavigate();
-
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3000/update", { name, email, password })
+    await fetch("http://localhost:3000/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
       .then((res) => {
-        console.log(res);
-        setCategory("general");
-        setcurrButton("general");
+        if (res.data === "No data") {
+          window.alert("No data");
+        } else {
+          console.log(res);
+          setCategory("general");
+          setcurrButton("general");
+        }
       })
       .catch((err) => console.log(err));
   };

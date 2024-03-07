@@ -21,16 +21,17 @@ app.post("/login", async (req, res) => {
     if (user) {
       const pass = await bcrypt.compare(password, user.password);
       if (!pass) {
-        return res.json("Incorrect email or password");
+        return res.json({ msg: "Incorrect email or password", token: "" });
+      } else {
+        const token = jwt.sign(
+          { email: user.email, id: user._id },
+          process.env.JWT_KEY,
+          {
+            expiresIn: "1h",
+          }
+        );
+        res.json({ msg: "", token: token });
       }
-      const token = jwt.sign(
-        { email: user.email, id: user._id },
-        process.env.JWT_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
-      res.json("Success");
     } else {
       res.status(404).json({ error: "User not found" });
     }
@@ -54,33 +55,24 @@ app.post("/register", async (req, res) => {
         .create({ name, email, password: hashedpw })
         .then((user) => res.json(user))
         .catch((err) => res.json(err));
-      const token = jwt.sign(
-        { email: email, id: user._id },
-        process.env.JWT_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
-      res.json({ token });
     }
   }
 });
 
-app.post("/update", async (req, res) => {
+app.post("/update", validateToken, async (req, res) => {
   const { name, email, password } = req.body;
-  const hashedpw = await bcrypt.hash(password, 10);
   if (!name || !email || !password) {
-    res.json("No data");
+    return res.json("No data");
   } else {
+    const hashedpw = await bcrypt.hash(password, 10);
     const user = await users.findOne({ email });
     const updateResult = await users.updateOne(user, {
       $set: { name: name, password: hashedpw },
     });
+    console.log(updateResult);
     res.json(updateResult);
   }
 });
-
-app.use("/update", validateToken);
 
 app.listen(3000, () => {
   console.log("server is running");

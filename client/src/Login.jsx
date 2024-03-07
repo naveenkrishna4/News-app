@@ -8,10 +8,13 @@ function Login({ email, setemail, password, setpassword }) {
   const handleClick = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post("http://localhost:3000/login", {
+        email,
+        password,
+      })
       .then((res) => {
-        console.log(res);
-        if (res.data === "Success") {
+        if (res.data.msg === "") {
+          localStorage.setItem("token", res.data.token);
           navigate("/home");
         } else {
           window.alert("Incorrect email or password");
