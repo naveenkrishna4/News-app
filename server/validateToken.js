@@ -1,4 +1,4 @@
-var jwt = require("jsonwebtoken");
+const verify = require("jsonwebtoken");
 require("dotenv").config();
 
 const validateToken = (req, res, next) => {
@@ -7,7 +7,7 @@ const validateToken = (req, res, next) => {
     res.status(401).send("Authentication failed");
   }
   try {
-    const tok_data = jwt.verify(token, process.env.JWT_KEY);
+    const tok_data = verify(token, "Naveen@4");
     req.data = tok_data;
     next();
   } catch (err) {

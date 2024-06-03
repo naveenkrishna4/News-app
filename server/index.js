@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const connectdb = require("./config/dbconnect");
-const validateToken = require("./validateToken");
+const validateToken = require("./validateToken").default;
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
 const path = require("path");
@@ -28,7 +28,7 @@ app.post("/login", async (req, res) => {
       } else {
         const token = jwt.sign(
           { email: user.email, id: user._id },
-          process.env.JWT_KEY,
+          "Naveen@4",
           {
             expiresIn: "1h",
           }
@@ -62,7 +62,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/update", validateToken, async (req, res) => {
+app.post("/update", async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.json("No data");
