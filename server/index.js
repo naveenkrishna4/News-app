@@ -6,6 +6,9 @@ const connectdb = require("./config/dbconnect");
 const validateToken = require("./validateToken");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
+const path = require("path");
+
+const __dirname = path.resolve();
 
 dotenv.config();
 
@@ -72,6 +75,11 @@ app.post("/update", validateToken, async (req, res) => {
     console.log(updateResult);
     res.json(updateResult);
   }
+});
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 app.listen(3000, () => {

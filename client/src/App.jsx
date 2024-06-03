@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route
-          path="/register"
+          path="/"
           element={
             <Signup
               name={name}

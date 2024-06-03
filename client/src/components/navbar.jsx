@@ -5,7 +5,7 @@ function Navigationbar({ setCategory, currButton, setcurrButton }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/register");
+    navigate("/");
   };
 
   return (
