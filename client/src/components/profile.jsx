@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 function Update({
   setCategory,
@@ -22,13 +21,15 @@ function Update({
       body: JSON.stringify({
         email: email,
         password: password,
+        name: name,
       }),
     })
-      .then((res) => {
-        if (res.data === "No data") {
+      .then(async (res) => {
+        const data = await res.json();
+        if (data === "No data") {
           window.alert("No data");
         } else {
-          console.log(res);
+          console.log(data);
           setCategory("general");
           setcurrButton("general");
         }
