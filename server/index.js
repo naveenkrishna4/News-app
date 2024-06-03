@@ -8,7 +8,7 @@ const users = require("./model/usermodel");
 const dotenv = require("dotenv");
 const path = require("path");
 
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 
 dotenv.config();
 
