@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: [""],
+    origin: ["https://news4u-client.onrender.com"],
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -31,7 +31,7 @@ app.post("/login", async (req, res) => {
       } else {
         const token = jwt.sign(
           { email: user.email, id: user._id },
-          "Naveen@4",
+          process.env.JWT_KEY,
           {
             expiresIn: "1h",
           }

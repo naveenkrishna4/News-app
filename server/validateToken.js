@@ -7,7 +7,7 @@ const validateToken = (req, res, next) => {
     res.status(401).send("Authentication failed");
   }
   try {
-    const tok_data = verify(token, "Naveen@4");
+    const tok_data = verify(token, process.env.JWT_KEY);
     req.data = tok_data;
     next();
   } catch (err) {
