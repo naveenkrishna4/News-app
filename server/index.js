@@ -3,19 +3,22 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const connectdb = require("./config/dbconnect");
-const validateToken = require("./validateToken").default;
+const validateToken = require("./validateToken");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
-const path = require("path");
-
-//const __dirname = path.resolve();
 
 dotenv.config();
 
 connectdb();
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [""],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 app.post("/login", async (req, res) => {
   try {
@@ -75,12 +78,6 @@ app.post("/update", async (req, res) => {
     console.log(updateResult);
     res.json(updateResult);
   }
-});
-
-app.use(express.static(path.join(__dirname, "/client/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 app.listen(3000, () => {
