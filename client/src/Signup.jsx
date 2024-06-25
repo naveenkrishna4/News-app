@@ -9,7 +9,7 @@ function Signup({ name, setname, email, setemail, password, setpassword }) {
   const handleClick = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/register", { name, email, password })
+      .post("https://news4u-1.onrender.com/register", { name, email, password })
       .then((res) => {
         if (res.data === "No data") {
           window.alert("Please enter mandatory fields");

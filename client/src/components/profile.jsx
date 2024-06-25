@@ -14,7 +14,7 @@ function Update({
     console.log(email);
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/update", {
+      const response = await fetch("https://news4u-1.onrender.com/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,7 @@ function Login({ email, setemail, password, setpassword }) {
   const handleClick = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/login", {
+      .post("https://news4u-1.onrender.com/login", {
         email,
         password,
       })
