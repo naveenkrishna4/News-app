@@ -85,7 +85,7 @@ app.post("/update", async (req, res) => {
 });
 
 app.get("/news", async (req, res) => {
-  const url = req.body;
+  const { url } = req.body;
   try {
     const response = await axios.get(url);
     res.json(response.data);
