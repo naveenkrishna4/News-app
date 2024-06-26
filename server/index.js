@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const connectdb = require("./config/dbconnect");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
+const axios = require("axios");
 
 dotenv.config();
 
@@ -80,6 +81,17 @@ app.post("/update", async (req, res) => {
     });
     console.log(updateResult);
     res.json(updateResult);
+  }
+});
+
+app.get("/news", async (req, res) => {
+  const url = req.body;
+  try {
+    const response = await axios.get(url);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching news data:", error);
+    res.status(500).json({ error: "Failed to fetch news data" });
   }
 });
 
