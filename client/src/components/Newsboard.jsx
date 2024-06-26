@@ -1,4 +1,3 @@
-// Newsboard.jsx
 import React, { useState, useEffect } from "react";
 import Newsitem from "./Newsitem";
 import Update from "./profile";
@@ -6,7 +5,6 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://newsapi.org/v2",
-  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
