@@ -17,7 +17,7 @@ function Signup({ name, setname, email, setemail, password, setpassword }) {
   const handleClick = (e) => {
     e.preventDefault();
     instance
-      .post("https://news4u-1.onrender.com/register", { name, email, password })
+      .post("/register", { name, email, password })
       .then((res) => {
         if (res.data === "No data") {
           window.alert("Please enter mandatory fields");
