@@ -8,4 +8,11 @@ export default defineConfig({
     port: 5173,
     host: "0.0.0.0",
   },
+  build: {
+    minify: "terser",
+    sourcemap: false,
+  },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
 });
