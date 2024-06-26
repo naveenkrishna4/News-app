@@ -16,7 +16,7 @@ function Login({ email, setemail, password, setpassword }) {
   const handleClick = (e) => {
     e.preventDefault();
     instance
-      .post("https://news4u-1.onrender.com/login", {
+      .post("/login", {
         email,
         password,
       })

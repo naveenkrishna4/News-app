@@ -21,7 +21,7 @@ function Update({
 }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting with:", name, email, password); // Log inputs for debugging
+    console.log("Submitting with:", name, email, password);
     try {
       const response = await instance.post(
         "/update",
