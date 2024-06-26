@@ -23,14 +23,17 @@ function Update({
     console.log(email);
     e.preventDefault();
     try {
-      const response = await fetch("https://news4u-1.onrender.com/update", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const response = await instance.post(
+        "https://news4u-1.onrender.com/update",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update profile");
