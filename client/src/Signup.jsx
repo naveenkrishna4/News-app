@@ -56,7 +56,7 @@ function Signup({ name, setname, email, setemail, password, setpassword }) {
             onChange={(e) => setemail(e.target.value)}
           ></input>
         </div>
-        <div className="form group">
+        <div className="form group mt-3">
           <label htmlFor="password" className="block text-base mb-2">
             Password
           </label>
