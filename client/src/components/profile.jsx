@@ -38,10 +38,9 @@ function Update({
         }
       );
 
-      console.log("Response:", response.data); // Log response data for debugging
+      console.log("Response:", response.data);
 
       if (response.status === 200) {
-        // Assuming your server returns a success status code upon successful update
         setCategory("general");
         setcurrButton("general");
       } else {
