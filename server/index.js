@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const connectdb = require("./config/dbconnect");
-const validateToken = require("./validateToken");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
 
@@ -14,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://news4u-client.onrender.com",
+    origin: "https://news4u-client.onrender.com/",
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -29,7 +28,7 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await users.findOne({ email });
     if (user) {
-      const pass = await bcryptjs.compare(password, user.password);
+      const pass = await bcrypt.compare(password, user.password);
       if (!pass) {
         return res.json({ msg: "Incorrect email or password", token: "" });
       } else {
@@ -53,7 +52,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-  const hashedpw = await bcryptjs.hash(password, 10);
+  const hashedpw = await bcrypt.hash(password, 10);
   if (!name || !email || !password) {
     res.json("No data");
   } else {
@@ -74,7 +73,7 @@ app.post("/update", async (req, res) => {
   if (!name || !email || !password) {
     return res.json("No data");
   } else {
-    const hashedpw = await bcryptjs.hash(password, 10);
+    const hashedpw = await bcrypt.hash(password, 10);
     const user = await users.findOne({ email });
     const updateResult = await users.updateOne(user, {
       $set: { name: name, password: hashedpw },
