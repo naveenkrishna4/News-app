@@ -2,6 +2,15 @@
 import React, { useState, useEffect } from "react";
 import Newsitem from "./Newsitem";
 import Update from "./profile";
+import axios from "axios";
+
+const instance = axios.create({
+  baseURL: "https://newsapi.org/v2",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 function Newsboard({
   category,
@@ -33,16 +42,10 @@ function Newsboard({
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
+          const url = `/top-headlines?country=in&category=${category}&apiKey=${
             import.meta.env.VITE_API_KEY
           }`;
-          const response = await fetch(url, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          });
+          const response = await instance.get(url);
           const data = await response.json();
           setArticles(data.articles);
         } catch (error) {
