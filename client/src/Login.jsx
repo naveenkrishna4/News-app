@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const instance = axios.create({
+  baseURL: "https://news4u-1.onrender.com",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 function Login({ email, setemail, password, setpassword }) {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
-    axios
+    instance
       .post("https://news4u-1.onrender.com/login", {
         email,
         password,

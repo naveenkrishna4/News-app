@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const instance = axios.create({
+  baseURL: "https://news4u-1.onrender.com",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 function Update({
   name,
