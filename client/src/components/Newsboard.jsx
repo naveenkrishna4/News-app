@@ -3,7 +3,7 @@ import Newsitem from "./Newsitem";
 import Update from "./profile";
 import axios from "axios";
 
-const instance = axios.create({
+const newsInstance = axios.create({
   baseURL: "https://newsapi.org/v2",
   headers: {
     "Content-Type": "application/json",
@@ -43,9 +43,13 @@ function Newsboard({
           const url = `/top-headlines?country=in&category=${category}&apiKey=${
             import.meta.env.VITE_API_KEY
           }`;
-          const response = await instance.get(url);
-          const data = await response.json();
-          setArticles(data.articles);
+          const response = await newsInstance.get(url);
+
+          if (response.status === 200) {
+            setArticles(response.data.articles);
+          } else {
+            throw new Error("Failed to fetch news articles");
+          }
         } catch (error) {
           console.error("Error fetching data: ", error);
         }
