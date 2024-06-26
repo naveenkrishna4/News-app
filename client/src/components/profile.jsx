@@ -24,14 +24,17 @@ function Update({
     e.preventDefault();
     try {
       const response = await instance.post(
-        "https://news4u-1.onrender.com/update",
+        "/update",
         {
-          method: "POST",
+          name,
+          email,
+          password,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
             "auth-token": localStorage.getItem("token"),
           },
-          body: JSON.stringify({ name, email, password }),
         }
       );
 
