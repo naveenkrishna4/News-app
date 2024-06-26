@@ -36,7 +36,13 @@ function Newsboard({
           const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
             import.meta.env.VITE_API_KEY
           }`;
-          const response = await fetch(url);
+          const response = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          });
           const data = await response.json();
           setArticles(data.articles);
         } catch (error) {
