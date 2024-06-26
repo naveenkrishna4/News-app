@@ -41,10 +41,12 @@ function Newsboard({
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
+          const newsUrl = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
             import.meta.env.VITE_API_KEY
           }`;
-          const response = await instance.get("/news", { url });
+          const response = await instance.get("/news", {
+            params: { url: newsUrl },
+          });
 
           if (response.status === 200) {
             setArticles(response.data.articles);
