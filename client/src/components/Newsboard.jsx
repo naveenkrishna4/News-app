@@ -3,8 +3,9 @@ import Newsitem from "./Newsitem";
 import Update from "./profile";
 import axios from "axios";
 
-const newsInstance = axios.create({
-  baseURL: "https://newsapi.org/v2",
+const instance = axios.create({
+  baseURL: "https://news4u-1.onrender.com",
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -40,10 +41,10 @@ function Newsboard({
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const url = `/top-headlines?country=in&category=${category}&apiKey=${
+          const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${
             import.meta.env.VITE_API_KEY
           }`;
-          const response = await newsInstance.get(url);
+          const response = await instance.get("/news", { url });
 
           if (response.status === 200) {
             setArticles(response.data.articles);
