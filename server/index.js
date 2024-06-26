@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://news4u-client.onrender.com"],
+    origin: "https://news4u-client.onrender.com",
     methods: ["POST", "GET"],
     credentials: true,
   })
