@@ -13,24 +13,22 @@ const instance = axios.create({
 function Login({ email, setemail, password, setpassword }) {
   const navigate = useNavigate();
 
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    try {
-      const response = await instance.post("/login", {
+    instance
+      .post("https://news4u-1.onrender.com/login", {
         email,
         password,
-      });
-
-      if (response.data.msg === "") {
-        localStorage.setItem("token", response.data.token);
-        navigate("/home");
-      } else {
-        window.alert("Incorrect email or password");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      window.alert("Failed to login. Please try again.");
-    }
+      })
+      .then((res) => {
+        if (res.data.msg === "") {
+          localStorage.setItem("token", res.data.token);
+          navigate("/home");
+        } else {
+          window.alert("Incorrect email or password");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
