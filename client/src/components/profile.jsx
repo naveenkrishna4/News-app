@@ -20,8 +20,8 @@ function Update({
   setcurrButton,
 }) {
   const handleSubmit = async (e) => {
-    console.log(email);
     e.preventDefault();
+    console.log("Submitting with:", name, email, password); // Log inputs for debugging
     try {
       const response = await instance.post(
         "/update",
@@ -38,14 +38,15 @@ function Update({
         }
       );
 
-      if (!response.ok) {
+      console.log("Response:", response.data); // Log response data for debugging
+
+      if (response.status === 200) {
+        // Assuming your server returns a success status code upon successful update
+        setCategory("general");
+        setcurrButton("general");
+      } else {
         throw new Error("Failed to update profile");
       }
-
-      const data = await response.json();
-      console.log(data);
-      setCategory("general");
-      setcurrButton("general");
     } catch (error) {
       console.error("Update profile error:", error);
     }
