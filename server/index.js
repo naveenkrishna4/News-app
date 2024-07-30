@@ -6,6 +6,7 @@ const connectdb = require("./config/dbconnect");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
 const axios = require("axios");
+const validateToken = require("./validateToken");
 
 dotenv.config();
 
@@ -69,7 +70,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/update", async (req, res) => {
+app.post("/update", validateToken, async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.json("No data");
