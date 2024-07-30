@@ -22,7 +22,6 @@ function Login({ email, setemail, password, setpassword }) {
       })
       .then((res) => {
         if (res.data.msg === "") {
-          localStorage.setItem("token", res.data.token);
           navigate("/home");
         } else {
           window.alert("Incorrect email or password");

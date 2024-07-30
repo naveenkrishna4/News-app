@@ -41,6 +41,7 @@ app.post("/login", async (req, res) => {
             expiresIn: "1h",
           }
         );
+        res.cookie("accessToken", token, { httpOnly: true }).status(200);
         res.json({ msg: "", token: token });
       }
     } else {
@@ -76,10 +77,10 @@ app.post("/update", validateToken, async (req, res) => {
     return res.json("No data");
   } else {
     const hashedpw = await bcrypt.hash(password, 10);
-    const user = await users.findOne({ email });
-    const updateResult = await users.updateOne(user, {
-      $set: { name: name, password: hashedpw },
-    });
+    const updateResult = await users.updateOne(
+      { email },
+      { $set: { name, password: hashedpw } }
+    );
     console.log(updateResult);
     res.json(updateResult);
   }
