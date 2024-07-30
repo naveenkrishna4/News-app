@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const verifyUser = async (req, res, next) => {
+export const validateToken = async (req, res, next) => {
   const token = req.cookies.accessToken;
   if (!token) res.status(401).send("Authentication failed");
   const user = jwt.verify(token, process.env.JWT_KEY, (err, user) => {
