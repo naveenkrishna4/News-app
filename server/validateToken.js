@@ -1,18 +1,13 @@
-const verify = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from "jsonwebtoken";
 
-const validateToken = (req, res, next) => {
-  const token = req.headers["auth-token"];
-  if (!token) {
-    res.status(401).send("Authentication failed");
-  }
-  try {
-    const tok_data = verify(token, process.env.JWT_KEY);
-    req.data = tok_data;
+export const verifyUser = async (req, res, next) => {
+  const token = req.cookies.accessToken;
+  if (!token) res.status(401).send("Authentication failed");
+  const user = jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+    if (err) res.status(401).send("Authentication failed");
+    req.data = user;
     next();
-  } catch (err) {
-    res.status(401).send("Authentication failed");
-  }
+  });
 };
 
 module.exports = validateToken;
