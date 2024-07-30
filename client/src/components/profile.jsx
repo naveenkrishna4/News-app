@@ -23,22 +23,12 @@ function Update({
     e.preventDefault();
     console.log("Submitting with:", name, email, password);
     try {
-      const response = await instance.post(
-        "/update",
-        {
-          name,
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const response = await axios.post(
+        "https://news4u-1.onrender.com/update",
+        { name, email, password },
+        { headers: { "Content-Type": "application/json" } }
       );
-
       console.log("Response:", response.data);
-
       if (response.status === 200) {
         setCategory("general");
         setcurrButton("general");
