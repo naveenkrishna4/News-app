@@ -1,12 +1,10 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const connectdb = require("./config/dbconnect");
 const users = require("./model/usermodel");
 const dotenv = require("dotenv");
 const axios = require("axios");
-const validateToken = require("./validateToken");
 
 dotenv.config();
 
@@ -34,15 +32,7 @@ app.post("/login", async (req, res) => {
       if (!pass) {
         return res.json({ msg: "Incorrect email or password", token: "" });
       } else {
-        const token = jwt.sign(
-          { email: user.email, id: user._id },
-          process.env.JWT_KEY,
-          {
-            expiresIn: "1h",
-          }
-        );
-
-        res.json({ msg: "", token: token });
+        res.json({ msg: "" });
       }
     } else {
       res.status(404).json({ error: "User not found" });
